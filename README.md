@@ -5,6 +5,6 @@ Es können Übungen aus einer Liste gewählt und dem eigenem Plan hinzugefügt w
 Zu jeder Übung können Sätze hinzugefügt und pro Satz die ausgeführten Wiederholungen hinterlegt werden.
 Zudem wird das bewegte Gewicht pro Übung errechnet. 
 Angedacht sind zwei APIs:
-1 .Kalorienzähler mittels Smartwatch - Die Kalorien werden an den Fitnessplaner gesendet und mit den ausgeführten Übungen verrechnet.
+1. Kalorienzähler mittels Smartwatch - Die Kalorien werden an den Fitnessplaner gesendet und mit den ausgeführten Übungen verrechnet.
 2. Abspielen von Spotify-Favoritensongs - Zu verschiedenen Trainingskategorien können unterschiedliche Songs angelegt werden. Etwa zum Laufen kann eine andere Playlist angelegt werden als zum Kraftsport.
 Optional wird Google Tensorflow Pose Estimation implementiert.
