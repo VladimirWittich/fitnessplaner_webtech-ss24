@@ -8,3 +8,9 @@ Angedacht sind zwei APIs:
 1. Kalorienzähler mittels Smartwatch - Die Kalorien werden an den Fitnessplaner gesendet und mit den ausgeführten Übungen verrechnet.
 2. Abspielen von Spotify-Favoritensongs - Zu verschiedenen Trainingskategorien können unterschiedliche Songs angelegt werden. Etwa zum Laufen kann eine andere Playlist angelegt werden als zum Kraftsport.
 Optional wird Google Tensorflow Pose Estimation implementiert.
+
+Entity-Klassen:
+Personendaten: Speicherung des Namens, der Größe, des Gewichtes und des Geschlechtes
+Kalorienanzahl: Aktuelle Kalorien und die verbrannten Kalorien pro Training
+Übunsplandaten: Übungen, Sätze und Wiederholungen zur Übung, das bewegte Gewicht pro Übung
+Spotify-Favoritensongs: Die gespeicherten Spotify-Favoritensongs
