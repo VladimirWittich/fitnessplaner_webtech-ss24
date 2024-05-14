@@ -1,28 +1,16 @@
-# Verwende ein OpenJDK-21-Image als Basis
-FROM openjdk:21 AS build
-
-# Setze das Arbeitsverzeichnis im Container
+#
+# Build stage
+#
+FROM gradle:7.3.3-jdk17 AS build
 WORKDIR /app
+COPY . /app/
+RUN gradle build --no-daemon
 
-# Kopiere die Projektdateien in das Arbeitsverzeichnis
-COPY . .
-
-# Führe den Build der Anwendung durch
-RUN ./gradlew build --no-daemon
-
-# Erstelle ein neues Image für die Ausführung der Anwendung
-FROM openjdk:21
-
-# Setze das Arbeitsverzeichnis im Container
+#
+# Package stage
+#
+FROM openjdk:17-alpine
 WORKDIR /app
-
-# Kopiere die gebaute JAR-Datei aus dem Build-Image in das Arbeitsverzeichnis
-COPY --from=build /app/build/libs/fitnessplaner-0.0.1-SNAPSHOT.jar app.jar
-
-
-
-# Exponiere den Port, auf dem die Anwendung läuft
+COPY --from=build /app/build/libs/*.jar /app/app.jar
 EXPOSE 8080
-
-# Starte die Anwendung beim Ausführen des Containers
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
