@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequestMapping("/workoutplan")
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com")
 
 
 public class ExerciseListController {
@@ -19,7 +19,7 @@ public class ExerciseListController {
     @GetMapping()
     public List<Exercise> getExercise() {
         return List.of(
-                new Exercise("", 0)
+                new Exercise("", 2)
         );
     }
 }
