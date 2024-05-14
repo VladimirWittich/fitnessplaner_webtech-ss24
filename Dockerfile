@@ -1,30 +1,22 @@
+# Verwende ein OpenJDK-Image als Basis
 FROM openjdk:17-jdk-slim AS build
 
+# Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
 
-# Installiere alle erforderlichen Tools und Bibliotheken
-RUN apt-get update && \
-    apt-get install -y curl
-
-# Gradle Installation
-RUN curl -L https://services.gradle.org/distributions/gradle-7.3-bin.zip -o gradle.zip && \
-    unzip gradle.zip && \
-    rm gradle.zip && \
-    mv gradle-7.3 /usr/local/gradle
-
-ENV PATH="/usr/local/gradle/bin:${PATH}"
-
-# Kopiere die Projektdateien
+# Kopiere die Projektdateien in das Arbeitsverzeichnis
 COPY . .
 
-# Baue die Anwendung
-RUN gradle build --no-daemon
+# Führe den Build der Anwendung durch
+RUN ./gradlew build --no-daemon
 
+# Erstelle ein neues Image für die Ausführung der Anwendung
 FROM openjdk:17-jdk-slim
 
+# Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
 
-# Kopiere die gebaute JAR-Datei aus dem Build-Image
+# Kopiere die gebaute JAR-Datei aus dem Build-Image in das Arbeitsverzeichnis
 COPY --from=build /app/build/libs/fitnessplaner-0.0.1-SNAPSHOT.jar app.jar
 
 # Exponiere den Port, auf dem die Anwendung läuft
