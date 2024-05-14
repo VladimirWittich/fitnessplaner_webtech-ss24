@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM gradle:7.5-jdk17 AS build
+FROM gradle:7.5.1-jdk17 AS build
 WORKDIR /app
 COPY . /app/
 RUN gradle build --no-daemon
