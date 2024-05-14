@@ -4,7 +4,9 @@
 FROM gradle:7.5.1-jdk17 AS build
 WORKDIR /app
 COPY . /app/
-RUN gradle build --no-daemon
+RUN JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java)))) && \
+    export JAVA_HOME && \
+    gradle build --no-daemon
 
 #
 # Package stage
