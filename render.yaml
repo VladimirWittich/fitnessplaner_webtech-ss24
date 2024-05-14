@@ -1,5 +1,8 @@
-services:
-  - name: fitnessplaner
+web_services:
+  - name: my-service
     env: docker
-    buildCommand: docker build -t fitnessplaner .
-    startCommand: docker run -p 8080:8080 fitnessplaner
+    build_command: docker build -t my-service .
+    start_command: docker run -p 8080:8080 my-service
+    health_check:
+      http_endpoint: /
+      port: 8080
