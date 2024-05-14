@@ -1,20 +1,26 @@
-FROM ubuntu:latest
-LABEL authors="vladimirwittich"
+# Verwende ein OpenJDK-21-Image als Basis
+FROM openjdk:21 AS build
 
-ENTRYPOINT ["top", "-b"]
+# Setze das Arbeitsverzeichnis im Container
+WORKDIR /app
 
-FROM ubuntu:latest AS build
-
-RUN apt-get update
-RUN apt-get install openjdk-21-jdk -y
+# Kopiere die Projektdateien in das Arbeitsverzeichnis
 COPY . .
 
-RUN ./gradlew bootJar --no-daemon
+# Führe den Build der Anwendung durch
+RUN ./gradlew build --no-daemon
 
-FROM openjdk:17-jdk-slim
+# Erstelle ein neues Image für die Ausführung der Anwendung
+FROM openjdk:21
 
+# Setze das Arbeitsverzeichnis im Container
+WORKDIR /app
+
+# Kopiere die gebaute JAR-Datei aus dem Build-Image in das Arbeitsverzeichnis
+COPY --from=build /app/build/libs/fitnessplaner-0.0.1-SNAPSHOT.jar app.jar
+
+# Exponiere den Port, auf dem die Anwendung läuft
 EXPOSE 8080
 
-COPY --from=build /build/libs/fitnessplaner-0.0.1-SNAPSHOT.jar fitnessplaner-0.0.1-SNAPSHOT-plain.jar
-
+# Starte die Anwendung beim Ausführen des Containers
 ENTRYPOINT ["java", "-jar", "app.jar"]
