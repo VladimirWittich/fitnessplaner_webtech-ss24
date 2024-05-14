@@ -8,7 +8,7 @@ WORKDIR /app/build
 COPY . .
 
 # Führe den Build der Anwendung durch
-RUN ./gradlew build --no-daemon
+RUN gradle build --no-daemon
 
 # Erstelle ein neues Image für die Ausführung der Anwendung
 FROM openjdk:21
