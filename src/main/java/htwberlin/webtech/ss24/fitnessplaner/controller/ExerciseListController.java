@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 public class ExerciseListController {
 
-    @GetMapping(path = "/workoutplan")
+    @GetMapping()
     public List<Exercise> getExercise() {
         return List.of(
                 new Exercise("Bench", 2)
