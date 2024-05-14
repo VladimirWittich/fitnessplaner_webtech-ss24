@@ -1,23 +1,26 @@
-FROM ubuntu:latest
-LABEL authors="vladimirwittich"
+# Verwende ein OpenJDK-Image als Basis
+FROM openjdk:17-jdk-slim AS build
 
-# Aktualisiere die Paketquellen und installiere OpenJDK 16
-RUN apt-get update && apt-get install -y openjdk-16-jdk
+# Setze das Arbeitsverzeichnis im Container
+WORKDIR /app
 
-# Kopiere den Projektcode in den Container
+# Kopiere die Projektdateien in das Arbeitsverzeichnis
 COPY . .
 
-# Führe den Gradle-Build aus
-RUN ./gradlew bootJar --no-daemon
+# Führe den Build der Anwendung durch
+RUN ./gradlew build --no-daemon
 
-# Verwende OpenJDK 17 für die Ausführung der Anwendung
+# Erstelle ein neues Image für die Ausführung der Anwendung
 FROM openjdk:17-jdk-slim
 
-# Exponiere den Port 8080 (wenn benötigt)
+# Setze das Arbeitsverzeichnis im Container
+WORKDIR /app
+
+# Kopiere die gebaute JAR-Datei aus dem Build-Image in das Arbeitsverzeichnis
+COPY --from=build /app/build/libs/fitnessplaner-0.0.1-SNAPSHOT.jar app.jar
+
+# Exponiere den Port, auf dem die Anwendung läuft
 EXPOSE 8080
 
-# Kopiere das erstellte JAR-Datei in den Container
-COPY --from=build /build/libs/fitnessplaner-0.0.1-SNAPSHOT.jar app.jar
-
-# Definiere den Befehl zum Ausführen der Anwendung
+# Starte die Anwendung beim Ausführen des Containers
 ENTRYPOINT ["java", "-jar", "app.jar"]
