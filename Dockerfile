@@ -1,5 +1,5 @@
-# Verwende ein OpenJDK-Image als Basis
-FROM openjdk:17-jdk-slim AS build
+# Verwende ein OpenJDK-21-Image als Basis
+FROM openjdk:21 AS build
 
 # Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
@@ -11,7 +11,7 @@ COPY . .
 RUN ./gradlew build --no-daemon
 
 # Erstelle ein neues Image für die Ausführung der Anwendung
-FROM openjdk:17-jdk-slim
+FROM openjdk:21
 
 # Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
