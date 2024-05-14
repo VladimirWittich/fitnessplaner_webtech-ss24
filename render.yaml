@@ -2,7 +2,7 @@ web_services:
   - name: my-service
     env: docker
     build_command: docker build -t my-service .
-    start_command: docker run -p 8080:8080 my-service
+    start_command: docker run -p 10000:8080 my-service
     health_check:
       http_endpoint: /
-      port: 8080
+      port: 10000
