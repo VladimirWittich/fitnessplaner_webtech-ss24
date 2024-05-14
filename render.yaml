@@ -1,0 +1,5 @@
+services:
+  - name: fitnessplaner
+    env: docker
+    buildCommand: docker build -t fitnessplaner .
+    startCommand: docker run -p 8080:8080 fitnessplaner
