@@ -19,6 +19,8 @@ WORKDIR /app
 # Kopiere die gebaute JAR-Datei aus dem Build-Image in das Arbeitsverzeichnis
 COPY --from=build /app/build/libs/fitnessplaner-0.0.1-SNAPSHOT.jar app.jar
 
+
+
 # Exponiere den Port, auf dem die Anwendung läuft
 EXPOSE 8080
 
