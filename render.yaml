@@ -1,8 +1,14 @@
-web_services:
-  - name: my-service
+services:
+  - type: web
+    name: my-frontend-service
     env: docker
-    build_command: docker build -t my-service .
-    start_command: docker run -p 10000:8080 my-service
-    health_check:
-      http_endpoint: /
-      port: 10000
+    buildCommand: docker build -t my-service .
+    startCommand: docker run -p 10000:8080 my-service
+    envVars:
+      - key: RENDER_EXTERNAL_URL
+        value: https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com
+    routes:
+      - type: rewrite
+        source: /.*
+        destination: /index.html
+    healthCheckPath: /
