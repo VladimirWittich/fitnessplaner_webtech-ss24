@@ -19,7 +19,7 @@ public class ExerciseListController {
     @GetMapping()
     public List<Exercise> getExercise() {
         return List.of(
-                new Exercise("Bench", 2, 10, 20, 200)
+                new Exercise("Bench", 2)
         );
     }
 }
