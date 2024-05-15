@@ -16,4 +16,6 @@ public record Exercise (
         }
         return totalWeight;
     }
+
+    public Exercise () {}
 }
