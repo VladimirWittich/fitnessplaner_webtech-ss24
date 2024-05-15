@@ -10,6 +10,7 @@ import java.util.List;
 
 @RequestMapping("/workoutplan")
 @CrossOrigin(origins = "https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com/workoutplan")
+
 @RestController
 public class ExerciseListController {
 
