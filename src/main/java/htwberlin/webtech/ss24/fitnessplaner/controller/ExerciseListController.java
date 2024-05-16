@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RequestMapping("/workoutplan")
-@CrossOrigin(origins = "https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com/workoutplan")
-
+@CrossOrigin(origins = "https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com")
 @RestController
 public class ExerciseListController {
 
     @GetMapping()
     public List<Exercise> getExercise() {
         // Erstelle eine Übung mit Wiederholungen und Gewicht
-        Exercise exercise = new Exercise("Bench", 2, List.of(10, 12), List.of(50, 55));
+        Exercise exercise = new Exercise("Bench", 2);
 
         // Gib eine Liste mit dieser Übung zurück
         return List.of(exercise);
