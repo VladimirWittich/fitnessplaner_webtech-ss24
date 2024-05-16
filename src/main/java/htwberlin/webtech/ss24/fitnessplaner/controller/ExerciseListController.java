@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping("/workoutplan")
 @CrossOrigin(origins = "https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com")
 @RestController
+@RequestMapping("/workoutplan")
 public class ExerciseListController {
 
     @GetMapping()
