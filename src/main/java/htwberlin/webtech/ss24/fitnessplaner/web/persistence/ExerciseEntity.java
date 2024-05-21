@@ -1,6 +1,5 @@
 package htwberlin.webtech.ss24.fitnessplaner.web.persistence;
 
-
 import jakarta.persistence.*;
 
 @Entity(name = "exercise")
@@ -13,6 +12,7 @@ public class ExerciseEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "sets", nullable = false)
     private int sets;
 
@@ -22,22 +22,12 @@ public class ExerciseEntity {
     @Column(name = "weight", nullable = false)
     private int weight;
 
-    public ExerciseEntity(String name, int sets, int repetitions, int weight) {
-        this.name = name;
-        this.sets = sets;
-        this.repetitions = repetitions;
-        this.weight = weight;
-    }
-
-
-
-    protected ExerciseEntity() {
+    public ExerciseEntity() {
     }
 
     public Long getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
