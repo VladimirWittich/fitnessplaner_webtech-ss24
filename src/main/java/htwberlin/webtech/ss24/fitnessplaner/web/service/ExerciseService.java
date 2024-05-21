@@ -64,9 +64,7 @@ public class ExerciseService {
     private Exercise transformEntity(ExerciseEntity exerciseEntity) {
         return new Exercise(
                 exerciseEntity.getName(),
-                exerciseEntity.getSets(),
-                exerciseEntity.getRepetitions(),
-                exerciseEntity.getWeight()
+                exerciseEntity.getSets()
         );
 
     }
