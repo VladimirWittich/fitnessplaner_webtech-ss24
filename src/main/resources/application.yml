@@ -1,4 +1,21 @@
-spring.application.name=fitnessplaner
-
-server.port=10000
-
+spring:
+  datasource:
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    url: ${DATASOURCE_URL}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+    show-sql: false # Set true for debugging
+    hibernate:
+      ddl-auto: update # (create, create-drop, validate, update)
+    open-in-view: false
+  sql:
+    init:
+      platform: postgres
+      mode: always
