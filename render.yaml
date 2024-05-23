@@ -3,7 +3,7 @@ services:
     name: my-frontend-service
     env: docker
     buildCommand: docker build -t my-service .
-    startCommand: docker run -p 10000:8080 my-service
+    startCommand: docker run -p 5173:8080 my-service
     envVars:
       - key: RENDER_EXTERNAL_URL
         value: https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com
