@@ -25,9 +25,7 @@ public class ExerciseEntity {
     public ExerciseEntity() {
     }
 
-    public Long getId() {
-        return id;
-    }
+
 
     public String getName() {
         return name;

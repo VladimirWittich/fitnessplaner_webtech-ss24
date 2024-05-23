@@ -16,9 +16,10 @@ public class ExerciseListController {
     @GetMapping()
     public List<Exercise> getExercise() {
         // Erstelle eine Übung mit Wiederholungen und Gewicht
-        Exercise exercise = new Exercise("Bench", 2); // Beispielwerte für Wiederholungen und Gewicht
+        Exercise exercise = new Exercise("Bench", 3, 0, 0); // Beispielwerte für Wiederholungen und Gewicht
 
         return List.of(exercise);
     }
+
 
 }

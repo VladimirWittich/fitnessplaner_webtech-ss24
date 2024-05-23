@@ -30,8 +30,6 @@ public class ExerciseService {
         return exerciseEntity.map(this::transformEntity).orElse(null);
     }
 
-
-
     public Exercise update(Long id, ExerciseManipulationRequest request) {
         var exerciseEntityOptional = exerciseRepository.findById(id);
         if (exerciseEntityOptional.isEmpty()) {
@@ -41,6 +39,7 @@ public class ExerciseService {
         var exerciseEntity = exerciseEntityOptional.get();
         exerciseEntity.setName(request.getName());
         exerciseEntity.setSets(request.getSets());
+        // Setze die neuen Wiederholungen und Gewichte
         exerciseEntity.setRepetitions(request.getRepetitions());
         exerciseEntity.setWeight(request.getWeight());
         exerciseEntity = exerciseRepository.save(exerciseEntity);
@@ -58,13 +57,12 @@ public class ExerciseService {
     }
 
     private Exercise transformEntity(ExerciseEntity exerciseEntity) {
+        // Hier wird eine neue Exercise-Instanz mit den aktualisierten Parametern erstellt
         return new Exercise(
-                exerciseEntity.getId(),      // id hinzufügen
                 exerciseEntity.getName(),
                 exerciseEntity.getSets(),
                 exerciseEntity.getRepetitions(),
                 exerciseEntity.getWeight()
         );
     }
-
 }
