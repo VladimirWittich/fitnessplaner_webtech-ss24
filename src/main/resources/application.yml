@@ -10,6 +10,7 @@ spring:
       jdbc:
         time_zone: UTC
     show-sql: false # Set true for debugging
+    ddl-auto: update # (create, create-drop, validate, update)
     open-in-view: false
   sql:
     init:
