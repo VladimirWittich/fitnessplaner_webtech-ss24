@@ -7,7 +7,8 @@ spring:
 
   jpa:
     properties:
-
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
       jdbc:
         time_zone: UTC
     show-sql: false # Set true for debugging
@@ -18,7 +19,3 @@ spring:
     init:
       platform: postgres
       mode: always
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
