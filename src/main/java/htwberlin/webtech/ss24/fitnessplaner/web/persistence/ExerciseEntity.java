@@ -13,7 +13,7 @@ public class ExerciseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "sets2", nullable = false)
+    @Column(name = "sets", nullable = false)
     private int sets;
 
     @Column(name = "repetitions", nullable = false)
