@@ -1,9 +1,10 @@
 package htwberlin.webtech.ss24.fitnessplaner.model;
 
-public record Exercise (
+import java.util.List;
 
+public record Exercise(
         String name,
         int sets,
-        int repetitions,
-        int weight
+        List<Integer> repetitions,
+        List<Integer> weight
 ) {}

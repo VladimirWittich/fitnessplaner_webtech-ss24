@@ -2,6 +2,10 @@ package htwberlin.webtech.ss24.fitnessplaner.web.persistence;
 
 import jakarta.persistence.*;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Entity(name = "exercise")
 public class ExerciseEntity {
 
@@ -16,16 +20,28 @@ public class ExerciseEntity {
     @Column(name = "sets", nullable = false)
     private int sets;
 
-    @Column(name = "repetitions", nullable = false)
-    private int repetitions;
+    @Column(name = "repetitions")
+    private String repetitions;
 
-    @Column(name = "weight", nullable = false)
-    private int weight;
+    @Column(name = "weights")
+    private String weights;
 
-    public ExerciseEntity() {
+    public ExerciseEntity() {}
+
+    public ExerciseEntity(String name, int sets, List<Integer> repetitions, List<Integer> weights) {
+        this.name = name;
+        this.sets = sets;
+        this.repetitions = convertListToString(repetitions);
+        this.weights = convertListToString(weights);
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -43,19 +59,53 @@ public class ExerciseEntity {
         this.sets = sets;
     }
 
-    public int getRepetitions() {
-        return repetitions;
+    public List<Integer> getRepetitions() {
+        return convertStringToList(repetitions);
     }
 
-    public void setRepetitions(int repetitions) {
-        this.repetitions = repetitions;
+    public void setRepetitions(List<Integer> repetitions) {
+        this.repetitions = convertListToString(repetitions);
     }
 
-    public int getWeight() {
-        return weight;
+    public List<Integer> getWeights() {
+        return convertStringToList(weights);
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setWeights(List<Integer> weights) {
+        this.weights = convertListToString(weights);
+    }
+
+    public List<Integer> getRepetitionsAsList() {
+        return Arrays.stream(repetitions.split(","))
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
+    }
+
+    public void setRepetitionsFromList(List<Integer> repetitions) {
+        this.repetitions = String.join(",", repetitions.stream()
+                .map(String::valueOf)
+                .collect(Collectors.toList()));
+    }
+
+    // Similar methods for weights
+
+    private String convertListToString(List<Integer> list) {
+        if (list == null || list.isEmpty()) {
+            return "";
+        }
+        return list.stream()
+                .map(Object::toString)
+                .reduce((a, b) -> a + "," + b)
+                .orElse("");
+    }
+
+    private List<Integer> convertStringToList(String str) {
+        if (str == null || str.isEmpty()) {
+            return List.of();
+        }
+        String[] strArray = str.split(",");
+        return Arrays.stream(strArray)
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
     }
 }

@@ -1,13 +1,15 @@
 package htwberlin.webtech.ss24.fitnessplaner.web.persistence;
 
+import java.util.List;
+
 public class ExerciseManipulationRequest {
 
     private String name;
     private int sets;
-    private int repetitions;
-    private int weight;
+    private List<Integer> repetitions;
+    private List<Integer> weight;
 
-    public ExerciseManipulationRequest(String name, int sets, int repetitions, int weight) {
+    public ExerciseManipulationRequest(String name, int sets, List<Integer> repetitions, List<Integer> weight) {
         this.name = name;
         this.sets = sets;
         this.repetitions = repetitions;
@@ -30,19 +32,19 @@ public class ExerciseManipulationRequest {
         this.sets = sets;
     }
 
-    public int getRepetitions() {
+    public List<Integer> getRepetitions() {
         return repetitions;
     }
 
-    public void setRepetitions(int repetitions) {
+    public void setRepetitions(List<Integer> repetitions) {
         this.repetitions = repetitions;
     }
 
-    public int getWeight() {
+    public List<Integer> getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(List<Integer> weight) {
         this.weight = weight;
     }
 }
