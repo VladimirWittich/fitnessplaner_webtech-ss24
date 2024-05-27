@@ -23,17 +23,24 @@ public class ExerciseEntity {
     @Column(name = "repetitions")
     private String repetitions;
 
-    @Column(name = "weights")
-    private String weights;
+    @Column(name = "weight")
+    private String weight;
+
+    @Column(name = "total weight")
+    private int totalWeight;
+
 
     public ExerciseEntity() {}
 
-    public ExerciseEntity(String name, int sets, List<Integer> repetitions, List<Integer> weights) {
+    public ExerciseEntity(String name, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight) {
         this.name = name;
         this.sets = sets;
         this.repetitions = convertListToString(repetitions);
-        this.weights = convertListToString(weights);
+        this.weight = convertListToString(weight);
+        this.totalWeight = totalWeight; // Berechnung des Gesamtgewichts
     }
+
+
 
     public Long getId() {
         return id;
@@ -68,12 +75,21 @@ public class ExerciseEntity {
     }
 
     public List<Integer> getWeights() {
-        return convertStringToList(weights);
+        return convertStringToList(weight);
     }
 
     public void setWeights(List<Integer> weights) {
-        this.weights = convertListToString(weights);
+        this.weight = convertListToString(weights);
     }
+
+    public int getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(int totalWeight) {
+        this.totalWeight = totalWeight;
+    }
+
 
     public List<Integer> getRepetitionsAsList() {
         return Arrays.stream(repetitions.split(","))

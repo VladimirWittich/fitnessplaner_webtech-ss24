@@ -6,5 +6,7 @@ public record Exercise(
         String name,
         int sets,
         List<Integer> repetitions,
-        List<Integer> weight
+        List<Integer> weight,
+
+        int totalWeight
 ) {}

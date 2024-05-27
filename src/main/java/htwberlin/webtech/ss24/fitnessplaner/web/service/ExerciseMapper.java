@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 public class ExerciseMapper {
 
     public ExerciseEntity toEntity(Exercise exercise) {
-        return new ExerciseEntity(exercise.name(), exercise.sets(), exercise.repetitions(), exercise.weight());
+        return new ExerciseEntity(exercise.name(), exercise.sets(), exercise.repetitions(), exercise.weight(), exercise.totalWeight());
     }
 
+
+
     public Exercise toRecord(ExerciseEntity entity) {
-        return new Exercise(entity.getName(), entity.getSets(), entity.getRepetitions(), entity.getWeights());
+        return new Exercise(entity.getName(), entity.getSets(), entity.getRepetitions(), entity.getWeights(), entity.getTotalWeight());
     }
 }
