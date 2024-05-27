@@ -1,14 +1,13 @@
 package htwberlin.webtech.ss24.fitnessplaner.web;
 
 import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
-import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseEntity;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseManipulationRequest;
-import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseRepository;
 import htwberlin.webtech.ss24.fitnessplaner.web.service.ExerciseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/workoutplan")
 public class ExerciseRestController {
@@ -19,8 +18,7 @@ public class ExerciseRestController {
         this.exerciseService = exerciseService;
     }
 
-
-    @GetMapping("/{id}") // GET für eine bestimmte Übung
+    @GetMapping("/{id}")
     public ResponseEntity<Exercise> getExerciseById(@PathVariable Long id) {
         Exercise exercise = exerciseService.findById(id);
         if (exercise == null) {
@@ -43,26 +41,19 @@ public class ExerciseRestController {
         return ResponseEntity.ok(exercises);
     }
 
-    @PostMapping // POST für das Erstellen einer Übung
-    public ResponseEntity<?> createExercise(@RequestBody ExerciseManipulationRequest request) {
-        // Überprüfen, ob alle erforderlichen Felder ausgefüllt sind
-        if (request.getName() == null || request.getName().isEmpty() ||
-                request.getSets() <= 0 || request.getRepetitions() == null || request.getWeight() == null) {
-            return ResponseEntity.badRequest().body("Incomplete exercise data");
-        }
-
-        // Wenn die Validierung erfolgreich ist, erstellen Sie die Übung und speichern Sie sie in der Datenbank
+    @PostMapping
+    public ResponseEntity<Exercise> createExercise(@RequestBody ExerciseManipulationRequest request) {
         Exercise exercise = exerciseService.create(request);
         return ResponseEntity.ok(exercise);
     }
 
-    @PutMapping("/{id}") // PUT für das Aktualisieren einer Übung
+    @PutMapping("/{id}")
     public ResponseEntity<Exercise> updateExercise(@PathVariable Long id, @RequestBody ExerciseManipulationRequest request) {
-        Exercise updatedExercise = exerciseService.update(id, request);
-        if (updatedExercise == null) {
+        Exercise exercise = exerciseService.update(id, request);
+        if (exercise == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(updatedExercise);
+        return ResponseEntity.ok(exercise);
     }
 
     @DeleteMapping("/{id}") // DELETE für das Löschen einer Übung
@@ -73,5 +64,4 @@ public class ExerciseRestController {
         }
         return ResponseEntity.noContent().build();
     }
-
 }

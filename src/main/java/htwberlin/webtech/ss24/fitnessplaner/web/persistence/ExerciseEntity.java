@@ -2,6 +2,7 @@ package htwberlin.webtech.ss24.fitnessplaner.web.persistence;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,21 @@ public class ExerciseEntity {
     @Column(name = "total weight")
     private int totalWeight;
 
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 
     public ExerciseEntity() {}
 
