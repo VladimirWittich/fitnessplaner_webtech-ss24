@@ -32,6 +32,12 @@ public class ExerciseRestController {
         return ResponseEntity.ok(exercise);
     }
 
+    @PostMapping("/exercise")
+    public ResponseEntity<Exercise> createExercise(@RequestBody ExerciseManipulationRequest request) {
+        Exercise createdExercise = exerciseService.create(request);
+        return ResponseEntity.ok(createdExercise);
+    }
+
     @PutMapping("/exercise/{id}")
     public ResponseEntity<Exercise> updateExercise(@PathVariable Long id, @RequestBody ExerciseManipulationRequest request) {
         Exercise updatedExercise = exerciseService.update(id, request);
