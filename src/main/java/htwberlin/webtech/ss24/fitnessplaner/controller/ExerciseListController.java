@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ExerciseListController {
     @GetMapping()
     public List<Exercise> getExercise() {
         // Erstelle eine Übung mit Wiederholungen und Gewicht
-        Exercise exercise = new Exercise("Bench", 0, new ArrayList<>(), new ArrayList<>(), 0); // Leere Listen für Wiederholungen und Gewicht
+        Exercise exercise = new Exercise("Bench", 0, new ArrayList<>(), new ArrayList<>(), 0, LocalDateTime.now()); // Leere Listen für Wiederholungen und Gewicht
 
         return List.of(exercise);
     }

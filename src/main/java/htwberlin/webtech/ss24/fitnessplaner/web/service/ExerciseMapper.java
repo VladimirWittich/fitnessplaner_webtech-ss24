@@ -14,6 +14,6 @@ public class ExerciseMapper {
 
 
     public Exercise toRecord(ExerciseEntity entity) {
-        return new Exercise(entity.getName(), entity.getSets(), entity.getRepetitions(), entity.getWeights(), entity.getTotalWeight());
+        return new Exercise(entity.getName(), entity.getSets(), entity.getRepetitions(), entity.getWeights(), entity.getTotalWeight(), entity.getCreatedAt());
     }
 }
