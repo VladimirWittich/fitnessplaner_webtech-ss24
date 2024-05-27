@@ -28,9 +28,17 @@ public class ExerciseService {
                 .collect(Collectors.toList());
     }
 
+
     public Exercise findById(Long id) {
         var exerciseEntity = exerciseRepository.findById(id);
         return exerciseEntity.map(exerciseMapper::toRecord).orElse(null);
+    }
+
+    public List<Exercise> searchByName(String name) {
+        List<ExerciseEntity> exercises = exerciseRepository.findByName(name);
+        return exercises.stream()
+                .map(exerciseMapper::toRecord)
+                .collect(Collectors.toList());
     }
 
     public Exercise update(Long id, ExerciseManipulationRequest request) {

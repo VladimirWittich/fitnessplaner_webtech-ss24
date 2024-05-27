@@ -1,7 +1,9 @@
 package htwberlin.webtech.ss24.fitnessplaner.web;
 
 import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
+import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseEntity;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseManipulationRequest;
+import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseRepository;
 import htwberlin.webtech.ss24.fitnessplaner.web.service.ExerciseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +29,29 @@ public class ExerciseRestController {
         return ResponseEntity.ok(exercise);
     }
 
+    @GetMapping("/all")
+    public List<Exercise> getAllExercises() {
+        return exerciseService.findAll();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Exercise>> searchExercise(@RequestParam String query) {
+        List<Exercise> exercises = exerciseService.searchByName(query);
+        if (exercises.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(exercises);
+    }
+
     @PostMapping // POST für das Erstellen einer Übung
-    public ResponseEntity<Exercise> createExercise(@RequestBody ExerciseManipulationRequest request) {
+    public ResponseEntity<?> createExercise(@RequestBody ExerciseManipulationRequest request) {
+        // Überprüfen, ob alle erforderlichen Felder ausgefüllt sind
+        if (request.getName() == null || request.getName().isEmpty() ||
+                request.getSets() <= 0 || request.getRepetitions() == null || request.getWeight() == null) {
+            return ResponseEntity.badRequest().body("Incomplete exercise data");
+        }
+
+        // Wenn die Validierung erfolgreich ist, erstellen Sie die Übung und speichern Sie sie in der Datenbank
         Exercise exercise = exerciseService.create(request);
         return ResponseEntity.ok(exercise);
     }
@@ -50,4 +73,5 @@ public class ExerciseRestController {
         }
         return ResponseEntity.noContent().build();
     }
+
 }
