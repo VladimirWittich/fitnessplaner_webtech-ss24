@@ -1,6 +1,7 @@
 package htwberlin.webtech.ss24.fitnessplaner.web.service;
 
 import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
+import htwberlin.webtech.ss24.fitnessplaner.web.service.ExerciseMapper;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseEntity;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseManipulationRequest;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseRepository;
@@ -13,21 +14,31 @@ import java.util.stream.Collectors;
 public class ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
+    private final ExerciseMapper exerciseMapper;
 
-    public ExerciseService(ExerciseRepository exerciseRepository) {
+    public ExerciseService(ExerciseRepository exerciseRepository, ExerciseMapper exerciseMapper) {
         this.exerciseRepository = exerciseRepository;
+        this.exerciseMapper = exerciseMapper;
     }
 
     public List<Exercise> findAll() {
         List<ExerciseEntity> exercises = exerciseRepository.findAll();
         return exercises.stream()
-                .map(this::transformEntity)
+                .map(exerciseMapper::toRecord)
                 .collect(Collectors.toList());
     }
 
+
     public Exercise findById(Long id) {
         var exerciseEntity = exerciseRepository.findById(id);
-        return exerciseEntity.map(this::transformEntity).orElse(null);
+        return exerciseEntity.map(exerciseMapper::toRecord).orElse(null);
+    }
+
+    public List<Exercise> searchByName(String name) {
+        List<ExerciseEntity> exercises = exerciseRepository.findByName(name);
+        return exercises.stream()
+                .map(exerciseMapper::toRecord)
+                .collect(Collectors.toList());
     }
 
     public Exercise update(Long id, ExerciseManipulationRequest request) {
@@ -39,12 +50,24 @@ public class ExerciseService {
         var exerciseEntity = exerciseEntityOptional.get();
         exerciseEntity.setName(request.getName());
         exerciseEntity.setSets(request.getSets());
-        // Setze die neuen Wiederholungen und Gewichte
         exerciseEntity.setRepetitions(request.getRepetitions());
-        exerciseEntity.setWeight(request.getWeight());
+        exerciseEntity.setWeights(request.getWeight());
         exerciseEntity = exerciseRepository.save(exerciseEntity);
 
-        return transformEntity(exerciseEntity);
+        return exerciseMapper.toRecord(exerciseEntity);
+    }
+
+    public Exercise create(ExerciseManipulationRequest request) {
+        ExerciseEntity entity = new ExerciseEntity(
+                request.getName(),
+                request.getSets(),
+                request.getRepetitions(),
+                request.getWeight(),
+                request.getTotalWeight()
+        );
+        entity.setTotalWeight(request.getTotalWeight()); // Setzen des Gesamtgewichts
+        entity = exerciseRepository.save(entity);
+        return exerciseMapper.toRecord(entity);
     }
 
     public boolean deleteById(Long id) {
@@ -54,15 +77,5 @@ public class ExerciseService {
 
         exerciseRepository.deleteById(id);
         return true;
-    }
-
-    private Exercise transformEntity(ExerciseEntity exerciseEntity) {
-        // Hier wird eine neue Exercise-Instanz mit den aktualisierten Parametern erstellt
-        return new Exercise(
-                exerciseEntity.getName(),
-                exerciseEntity.getSets(),
-                exerciseEntity.getRepetitions(),
-                exerciseEntity.getWeight()
-        );
     }
 }
