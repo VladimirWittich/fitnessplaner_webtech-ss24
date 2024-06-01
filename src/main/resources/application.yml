@@ -7,6 +7,7 @@ spring:
 
   jpa:
     properties:
+
       jdbc:
         time_zone: UTC
     show-sql: false # Set true for debugging
