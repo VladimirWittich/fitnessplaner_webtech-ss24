@@ -64,4 +64,7 @@ public class ExerciseRestController {
         }
         return ResponseEntity.noContent().build();
     }
+
+
+
 }
