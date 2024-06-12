@@ -7,15 +7,31 @@ spring:
 
   jpa:
     properties:
-
       jdbc:
         time_zone: UTC
     show-sql: false # Set true for debugging
     open-in-view: false
     hibernate:
       ddl-auto: update
+
   sql:
     init:
       platform: postgres
       mode: always
 
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            client-id: 0oahnnohukLTsAD3h5d7
+            scope: openid, profile, email
+            redirect-uri: "http://localhost:5173/login/callback"
+        provider:
+          okta:
+            issuer-uri: https://dev-50314961.okta.com/oauth2/default
+
+okta:
+  oauth2:
+    issuer: https://dev-50314961.okta.com/oauth2/default
+    client-id: 0oahnnohukLTsAD3h5d7

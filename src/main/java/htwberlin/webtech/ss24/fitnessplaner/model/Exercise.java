@@ -8,10 +8,7 @@ public record Exercise(
         int sets,
         List<Integer> repetitions,
         List<Integer> weight,
-
         int totalWeight,
-
+        Long ownerId, // ownerId als Feld hinzufügen
         LocalDateTime createdAt
-
-
 ) {}
