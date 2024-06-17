@@ -1,56 +1,55 @@
 package okta.authorizationapp.configuration;
 
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.Customizer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Order(1)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/oauth2/**").permitAll()
-                        .anyRequest().authenticated())
+        http
+                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())) // CSRF-Schutz aktivieren
+                .cors(Customizer.withDefaults()) // CORS-Konfiguration hinzufügen
+                .authorizeRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/oauth2/**").permitAll() // Anfragen, die mit /oauth2/ beginnen, erlauben
+                        .anyRequest().authenticated()) // Alle anderen Anfragen erfordern Authentifizierung
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .loginPage("/oauth2/authorization/okta")
-                        .defaultSuccessUrl("/"))
-                .oauth2Client(Customizer.withDefaults())
+                        .loginPage("/oauth2/authorization/okta") // Login-Seite für Okta OAuth2
+                        .defaultSuccessUrl("/")) // Erfolgreiche Weiterleitung nach dem Login
+                .oauth2Client(Customizer.withDefaults()) // Standard-OAuth2-Client-Konfiguration
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer
-                        .jwt(Customizer.withDefaults()));
-
-        http.cors(Customizer.withDefaults());
+                        .jwt(Customizer.withDefaults())); // Standard-JWT-Konfiguration
 
         return http.build();
     }
 
+
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
-        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
         configuration.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/myapp/**", configuration);
-        source.registerCorsConfiguration("/oauth2/**", configuration);
-        source.registerCorsConfiguration("/logout", configuration);
+        source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 

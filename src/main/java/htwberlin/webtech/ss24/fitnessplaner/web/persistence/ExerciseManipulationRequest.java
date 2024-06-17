@@ -40,6 +40,7 @@ public class ExerciseManipulationRequest {
         return repetitions;
     }
 
+    public ExerciseManipulationRequest () {}
     public void setRepetitions(List<Integer> repetitions) {
         this.repetitions = repetitions;
     }
