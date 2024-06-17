@@ -14,6 +14,9 @@ public class ExerciseEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "owner", nullable = false)
+    private String owner;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -66,7 +69,7 @@ public class ExerciseEntity {
 
     public ExerciseEntity() {}
 
-    public ExerciseEntity(String name, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, Long ownerId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ExerciseEntity(String name, String owner, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, Long ownerId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.name = name;
         this.sets = sets;
         this.repetitions = convertListToString(repetitions);
@@ -75,6 +78,7 @@ public class ExerciseEntity {
         this.ownerId = ownerId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.owner = owner;
     }
 
 
@@ -85,6 +89,10 @@ public class ExerciseEntity {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getOwner() {return owner;}
+
+    public void setOwner(String owner) {this.owner = owner; }
 
     public String getName() {
         return name;
@@ -126,7 +134,7 @@ public class ExerciseEntity {
         this.totalWeight = totalWeight;
     }
 
-    public Long getOwnerId() {
+    public Long getOwerId() {
         return ownerId;
     }
 
@@ -167,4 +175,6 @@ public class ExerciseEntity {
                 .map(Integer::valueOf)
                 .collect(Collectors.toList());
     }
+
+
 }

@@ -5,11 +5,13 @@ import java.util.List;
 
 public record Exercise(
         String name,
+
+        String owner,
         int sets,
         List<Integer> repetitions,
         List<Integer> weight,
         int totalWeight,
-        Long ownerId, // ownerId als Feld hinzufügen
+        Long ownerId,
         LocalDateTime createdAt
 
 ) {}

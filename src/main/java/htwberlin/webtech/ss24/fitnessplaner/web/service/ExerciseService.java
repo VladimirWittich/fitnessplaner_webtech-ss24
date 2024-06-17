@@ -61,6 +61,7 @@ public class ExerciseService {
     public Exercise create(ExerciseManipulationRequest request) {
         ExerciseEntity entity = new ExerciseEntity(
                 request.getName(),
+                request.getOwner(),
                 request.getSets(),
                 request.getRepetitions(),
                 request.getWeight(),

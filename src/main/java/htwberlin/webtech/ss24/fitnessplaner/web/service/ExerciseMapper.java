@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 public class ExerciseMapper {
 
     public ExerciseEntity toEntity(Exercise exercise) {
-        // ownerId direkt von Exercise erhalten
         ExerciseEntity entity = new ExerciseEntity(
                 exercise.name(),
+                exercise.owner(),
                 exercise.sets(),
                 exercise.repetitions(),
                 exercise.weight(),
@@ -28,12 +28,13 @@ public class ExerciseMapper {
     public Exercise toRecord(ExerciseEntity entity) {
         return new Exercise(
                 entity.getName(),
+                entity.getOwner(),
                 entity.getSets(),
                 entity.getRepetitions(),
                 entity.getWeights(),
                 entity.getTotalWeight(),
-                entity.getOwnerId(), // ownerId vom Typ Long
-                entity.getCreatedAt() // createdAt vom Typ LocalDateTime
+                entity.getOwerId(),
+                entity.getCreatedAt()
         );
     }
 

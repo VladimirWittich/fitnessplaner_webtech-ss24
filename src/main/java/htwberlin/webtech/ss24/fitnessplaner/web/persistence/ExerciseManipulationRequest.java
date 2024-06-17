@@ -9,16 +9,27 @@ public class ExerciseManipulationRequest {
     private List<Integer> repetitions;
     private List<Integer> weight;
     private int totalWeight;
-    private String ownerId; // Hinzufügen des ownerId
+    private String ownerId;
+    private String owner;
 
-    public ExerciseManipulationRequest(String name, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, String ownerId) {
+    public ExerciseManipulationRequest(String name, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, String ownerId, String owner) {
         this.name = name;
         this.sets = sets;
         this.repetitions = repetitions;
         this.weight = weight;
         this.totalWeight = totalWeight;
         this.ownerId = ownerId;
+        this.owner = owner;
     }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
 
     public String getName() {
         return name;
@@ -65,7 +76,6 @@ public class ExerciseManipulationRequest {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
+    public void setOwnerId(String ownerId) {this.ownerId = ownerId;
     }
 }

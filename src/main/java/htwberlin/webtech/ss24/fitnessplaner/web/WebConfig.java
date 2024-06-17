@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:5173", "https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com")
                 .allowedMethods("*")
-                .allowedHeaders("http://localhost:5173");
+                .allowedHeaders("*");
     }
 }
 
