@@ -11,4 +11,7 @@ public record Exercise(
         int totalWeight,
         Long ownerId, // ownerId als Feld hinzufügen
         LocalDateTime createdAt
+
 ) {}
+
+

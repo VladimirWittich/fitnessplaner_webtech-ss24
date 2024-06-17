@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/myprofile")
 public class MyProfileController {
@@ -22,7 +23,6 @@ public class MyProfileController {
         PersonData personData = new PersonData(178, 90, "male");
 
         return List.of(personData);
-    }
+    } }
 
 
-}

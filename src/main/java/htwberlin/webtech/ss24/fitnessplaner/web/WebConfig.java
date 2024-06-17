@@ -18,3 +18,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedHeaders("http://localhost:5173");
     }
 }
+

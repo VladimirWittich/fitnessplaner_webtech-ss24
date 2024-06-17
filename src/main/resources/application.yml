@@ -13,7 +13,12 @@ spring:
     hibernate:
       ddl-auto: update
 
-      sql:
-        init:
-          platform: postgres
-          mode: always
+
+
+
+  sql:
+    init:
+      platform: postgres
+      mode: always
+
+
