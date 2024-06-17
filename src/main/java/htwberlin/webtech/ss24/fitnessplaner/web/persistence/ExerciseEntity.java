@@ -1,7 +1,6 @@
 package htwberlin.webtech.ss24.fitnessplaner.web.persistence;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -27,8 +26,11 @@ public class ExerciseEntity {
     @Column(name = "weight")
     private String weight;
 
-    @Column(name = "total weight")
+    @Column(name = "total_weight")
     private int totalWeight;
+
+    @Column(name = "owner_id", nullable = false)
+    private Long ownerId;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -64,14 +66,16 @@ public class ExerciseEntity {
 
     public ExerciseEntity() {}
 
-    public ExerciseEntity(String name, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight) {
+    public ExerciseEntity(String name, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, Long ownerId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.name = name;
         this.sets = sets;
         this.repetitions = convertListToString(repetitions);
         this.weight = convertListToString(weight);
-        this.totalWeight = totalWeight; // Berechnung des Gesamtgewichts
+        this.totalWeight = totalWeight;
+        this.ownerId = ownerId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
-
 
 
     public Long getId() {
@@ -122,6 +126,13 @@ public class ExerciseEntity {
         this.totalWeight = totalWeight;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
 
     public List<Integer> getRepetitionsAsList() {
         return Arrays.stream(repetitions.split(","))

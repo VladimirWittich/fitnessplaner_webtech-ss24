@@ -4,17 +4,16 @@ spring:
     password: ${DATASOURCE_PASSWORD}
     url: ${DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
-
   jpa:
     properties:
-
       jdbc:
         time_zone: UTC
-    show-sql: false # Set true for debugging
+    show-sql: false
     open-in-view: false
     hibernate:
       ddl-auto: update
-  sql:
-    init:
-      platform: postgres
-      mode: always
+
+      sql:
+        init:
+          platform: postgres
+          mode: always

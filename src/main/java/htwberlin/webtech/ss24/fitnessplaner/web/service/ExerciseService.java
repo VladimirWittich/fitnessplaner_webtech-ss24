@@ -7,6 +7,7 @@ import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseManipulation
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,11 +64,18 @@ public class ExerciseService {
                 request.getSets(),
                 request.getRepetitions(),
                 request.getWeight(),
-                request.getTotalWeight()
+                request.getTotalWeight(),
+                Long.parseLong(request.getOwnerId()), // ownerId in Long umwandeln
+                LocalDateTime.now(),
+                null // updatedAt initialisieren
         );
-        entity.setTotalWeight(request.getTotalWeight()); // Setzen des Gesamtgewichts
         entity = exerciseRepository.save(entity);
         return exerciseMapper.toRecord(entity);
+    }
+    public List<Exercise> findByOwnerId(Long ownerId) {
+        return exerciseRepository.findByOwnerId(ownerId).stream()
+                .map(exerciseMapper::toRecord)
+                .collect(Collectors.toList());
     }
 
     public boolean deleteById(Long id) {

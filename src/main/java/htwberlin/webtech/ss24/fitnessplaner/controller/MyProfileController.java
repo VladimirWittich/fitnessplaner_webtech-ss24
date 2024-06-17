@@ -1,6 +1,8 @@
 package htwberlin.webtech.ss24.fitnessplaner.controller;
 
+
 import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
+import htwberlin.webtech.ss24.fitnessplaner.model.PersonData;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,15 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/workoutplan")
-public class ExerciseListController {
+@RequestMapping("/myprofile")
+public class MyProfileController {
 
     @GetMapping()
-    public List<Exercise> getExercise() {
+    public List<PersonData> getPersonData() {
         // Erstelle eine Übung mit Wiederholungen und Gewicht
-        Exercise exercise = new Exercise("Bench", 0, new ArrayList<>(), new ArrayList<>(), 0, null, LocalDateTime.now()); // Leere Listen für Wiederholungen und Gewicht
+        PersonData personData = new PersonData(178, 90, "male");
 
-        return List.of(exercise);
+        return List.of(personData);
     }
 
 
