@@ -9,16 +9,15 @@ public class ExerciseManipulationRequest {
     private List<Integer> repetitions;
     private List<Integer> weight;
     private int totalWeight;
-    private String ownerId;
+    private Long ownerId; // Change ownerId to Long type
     private String owner;
 
-    public ExerciseManipulationRequest(String name, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, String ownerId, String owner) {
+    public ExerciseManipulationRequest(String name, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, String owner) {
         this.name = name;
         this.sets = sets;
         this.repetitions = repetitions;
         this.weight = weight;
         this.totalWeight = totalWeight;
-        this.ownerId = ownerId;
         this.owner = owner;
     }
 
@@ -29,7 +28,6 @@ public class ExerciseManipulationRequest {
     public void setOwner(String owner) {
         this.owner = owner;
     }
-
 
     public String getName() {
         return name;
@@ -51,7 +49,6 @@ public class ExerciseManipulationRequest {
         return repetitions;
     }
 
-    public ExerciseManipulationRequest () {}
     public void setRepetitions(List<Integer> repetitions) {
         this.repetitions = repetitions;
     }
@@ -72,10 +69,4 @@ public class ExerciseManipulationRequest {
         this.totalWeight = totalWeight;
     }
 
-    public String getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(String ownerId) {this.ownerId = ownerId;
-    }
 }

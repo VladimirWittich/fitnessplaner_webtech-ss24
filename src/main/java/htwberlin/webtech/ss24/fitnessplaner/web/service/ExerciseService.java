@@ -1,10 +1,10 @@
 package htwberlin.webtech.ss24.fitnessplaner.web.service;
 
 import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
-import htwberlin.webtech.ss24.fitnessplaner.web.service.ExerciseMapper;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseEntity;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseManipulationRequest;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,6 +17,7 @@ public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseMapper exerciseMapper;
 
+    @Autowired
     public ExerciseService(ExerciseRepository exerciseRepository, ExerciseMapper exerciseMapper) {
         this.exerciseRepository = exerciseRepository;
         this.exerciseMapper = exerciseMapper;
@@ -28,7 +29,6 @@ public class ExerciseService {
                 .map(exerciseMapper::toRecord)
                 .collect(Collectors.toList());
     }
-
 
     public Exercise findById(Long id) {
         var exerciseEntity = exerciseRepository.findById(id);
@@ -52,32 +52,32 @@ public class ExerciseService {
         exerciseEntity.setName(request.getName());
         exerciseEntity.setSets(request.getSets());
         exerciseEntity.setRepetitions(request.getRepetitions());
-        exerciseEntity.setWeights(request.getWeight());
+        exerciseEntity.setWeight(request.getWeight());
         exerciseEntity = exerciseRepository.save(exerciseEntity);
 
         return exerciseMapper.toRecord(exerciseEntity);
     }
 
     public Exercise create(ExerciseManipulationRequest request) {
+        if (request.getOwner() == null) {
+            throw new IllegalArgumentException("Owner darf nicht null sein.");
+        }
+
         ExerciseEntity entity = new ExerciseEntity(
                 request.getName(),
-                request.getOwner(),
+                request.getOwner(), // Use owner from request
                 request.getSets(),
                 request.getRepetitions(),
                 request.getWeight(),
                 request.getTotalWeight(),
-                Long.parseLong(request.getOwnerId()), // ownerId in Long umwandeln
                 LocalDateTime.now(),
                 null // updatedAt initialisieren
         );
         entity = exerciseRepository.save(entity);
         return exerciseMapper.toRecord(entity);
     }
-    public List<Exercise> findByOwnerId(Long ownerId) {
-        return exerciseRepository.findByOwnerId(ownerId).stream()
-                .map(exerciseMapper::toRecord)
-                .collect(Collectors.toList());
-    }
+
+
 
     public boolean deleteById(Long id) {
         if (!exerciseRepository.existsById(id)) {
@@ -86,5 +86,12 @@ public class ExerciseService {
 
         exerciseRepository.deleteById(id);
         return true;
+    }
+
+    public List<Exercise> findByOwner(String owner) {
+        List<ExerciseEntity> exercises = exerciseRepository.findByOwner(owner);
+        return exercises.stream()
+                .map(exerciseMapper::toRecord)
+                .collect(Collectors.toList());
     }
 }

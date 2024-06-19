@@ -10,20 +10,17 @@ import java.time.LocalDateTime;
 public class ExerciseMapper {
 
     public ExerciseEntity toEntity(Exercise exercise) {
-        ExerciseEntity entity = new ExerciseEntity(
-                exercise.name(),
-                exercise.owner(),
-                exercise.sets(),
-                exercise.repetitions(),
-                exercise.weight(),
-                exercise.totalWeight(),
-                exercise.ownerId(),
-                LocalDateTime.now(),
-                null
-        );
+        ExerciseEntity entity = new ExerciseEntity();
+        entity.setName(exercise.name());
+        entity.setOwner(exercise.owner());
+        entity.setSets(exercise.sets());
+        entity.setRepetitions(exercise.repetitions()); // Direkte Zuweisung der Listen
+        entity.setWeight(exercise.weight()); // Direkte Zuweisung der Listen
+        entity.setTotalWeight(exercise.totalWeight());
+        entity.setCreatedAt(exercise.createdAt());
+        entity.setUpdatedAt(LocalDateTime.now());
         return entity;
     }
-
 
     public Exercise toRecord(ExerciseEntity entity) {
         return new Exercise(
@@ -31,12 +28,9 @@ public class ExerciseMapper {
                 entity.getOwner(),
                 entity.getSets(),
                 entity.getRepetitions(),
-                entity.getWeights(),
+                entity.getWeight(),
                 entity.getTotalWeight(),
-                entity.getOwerId(),
                 entity.getCreatedAt()
         );
     }
-
-
 }

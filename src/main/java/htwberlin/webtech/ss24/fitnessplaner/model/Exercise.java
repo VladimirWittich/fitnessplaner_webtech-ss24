@@ -11,8 +11,9 @@ public record Exercise(
         List<Integer> repetitions,
         List<Integer> weight,
         int totalWeight,
-        Long ownerId,
         LocalDateTime createdAt
+
+
 
 ) {}
 

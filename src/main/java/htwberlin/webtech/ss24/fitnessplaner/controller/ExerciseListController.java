@@ -17,7 +17,7 @@ public class ExerciseListController {
     @GetMapping()
     public List<Exercise> getExercise() {
         // Erstelle eine Übung mit Wiederholungen und Gewicht
-        Exercise exercise = new Exercise("Bench", "vladimirwittich@web.de", 3, new ArrayList<>(), new ArrayList<>(), 0, null, LocalDateTime.now());
+        Exercise exercise = new Exercise("Bench", "vladimirwittich@web.de", 3, new ArrayList<>(), new ArrayList<>(), 0,  LocalDateTime.now());
 
         return List.of(exercise);
     }

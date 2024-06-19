@@ -32,9 +32,6 @@ public class ExerciseEntity {
     @Column(name = "total_weight")
     private int totalWeight;
 
-    @Column(name = "owner_id", nullable = false)
-    private Long ownerId;
-
     @Column(name = "created_at", columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -51,36 +48,18 @@ public class ExerciseEntity {
         updatedAt = LocalDateTime.now();
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public ExerciseEntity() {}
 
-    public ExerciseEntity(String name, String owner, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, Long ownerId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ExerciseEntity(String name, String owner, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.name = name;
+        this.owner = owner;
         this.sets = sets;
         this.repetitions = convertListToString(repetitions);
         this.weight = convertListToString(weight);
         this.totalWeight = totalWeight;
-        this.ownerId = ownerId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.owner = owner;
     }
-
 
     public Long getId() {
         return id;
@@ -90,9 +69,13 @@ public class ExerciseEntity {
         this.id = id;
     }
 
-    public String getOwner() {return owner;}
+    public String getOwner() {
+        return owner;
+    }
 
-    public void setOwner(String owner) {this.owner = owner; }
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
     public String getName() {
         return name;
@@ -118,12 +101,12 @@ public class ExerciseEntity {
         this.repetitions = convertListToString(repetitions);
     }
 
-    public List<Integer> getWeights() {
+    public List<Integer> getWeight() {
         return convertStringToList(weight);
     }
 
-    public void setWeights(List<Integer> weights) {
-        this.weight = convertListToString(weights);
+    public void setWeight(List<Integer> weight) {
+        this.weight = convertListToString(weight);
     }
 
     public int getTotalWeight() {
@@ -134,27 +117,21 @@ public class ExerciseEntity {
         this.totalWeight = totalWeight;
     }
 
-    public Long getOwerId() {
-        return ownerId;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public List<Integer> getRepetitionsAsList() {
-        return Arrays.stream(repetitions.split(","))
-                .map(Integer::valueOf)
-                .collect(Collectors.toList());
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setRepetitionsFromList(List<Integer> repetitions) {
-        this.repetitions = String.join(",", repetitions.stream()
-                .map(String::valueOf)
-                .collect(Collectors.toList()));
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
-
-    // Similar methods for weights
 
     private String convertListToString(List<Integer> list) {
         if (list == null || list.isEmpty()) {
@@ -162,19 +139,15 @@ public class ExerciseEntity {
         }
         return list.stream()
                 .map(Object::toString)
-                .reduce((a, b) -> a + "," + b)
-                .orElse("");
+                .collect(Collectors.joining(","));
     }
 
     private List<Integer> convertStringToList(String str) {
         if (str == null || str.isEmpty()) {
             return List.of();
         }
-        String[] strArray = str.split(",");
-        return Arrays.stream(strArray)
+        return Arrays.stream(str.split(","))
                 .map(Integer::valueOf)
                 .collect(Collectors.toList());
     }
-
-
 }

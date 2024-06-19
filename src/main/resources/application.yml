@@ -12,29 +12,13 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
-
-
   sql:
     init:
       platform: postgres
       mode: always
 
-  security:
-    oauth2:
-      client:
-        registration:
-          okta:
-            client-id: 0oahnnohukLTsAD3h5d7
-            scope: openid, profile, email
-            redirect-uri: "http://localhost:5173/login/callback, https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com/login/callback"
-            authorization-grant-type: authorization_code
-            client-authentication-method: post
-      provider:
-        okta:
-          issuer-uri: https://dev-50314961.okta.com/oauth2/default
-
 okta:
   oauth2:
     issuer: https://dev-50314961.okta.com/oauth2/default
-    client-id: 0oahnnohukLTsAD3h5d7
-
+    client-id: oahnnohukLTsAD3h5d7
+    redirect-uri: http://localhost:8080/login/callback
