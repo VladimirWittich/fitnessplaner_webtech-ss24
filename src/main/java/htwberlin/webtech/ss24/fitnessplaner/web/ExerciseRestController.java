@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 
+
 @RestController
 @RequestMapping("/workoutplan")
 public class ExerciseRestController {
@@ -41,7 +42,7 @@ public class ExerciseRestController {
         return ResponseEntity.ok(exercise);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/history")
     public List<Exercise> getAllExercises(@RequestParam(required = false) String owner) {
         if (owner != null) {
             return exerciseService.findByOwner(owner);
