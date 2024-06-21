@@ -59,23 +59,24 @@ public class ExerciseService {
     }
 
     public Exercise create(ExerciseManipulationRequest request) {
-        if (request.getOwner() == null) {
-            throw new IllegalArgumentException("Owner darf nicht null sein.");
+        if (request.getOwner() == null || request.getOwner().isEmpty() || request.getName() == null || request.getName().isEmpty()) {
+            throw new IllegalArgumentException("Owner und Name dürfen nicht null oder leer sein.");
         }
 
         ExerciseEntity entity = new ExerciseEntity(
                 request.getName(),
-                request.getOwner(), // Use owner from request
+                request.getOwner(),
                 request.getSets(),
                 request.getRepetitions(),
                 request.getWeight(),
                 request.getTotalWeight(),
                 LocalDateTime.now(),
-                null // updatedAt initialisieren
+                null
         );
         entity = exerciseRepository.save(entity);
         return exerciseMapper.toRecord(entity);
     }
+
 
 
 

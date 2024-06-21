@@ -9,7 +9,6 @@ public class ExerciseManipulationRequest {
     private List<Integer> repetitions;
     private List<Integer> weight;
     private int totalWeight;
-    private Long ownerId; // Change ownerId to Long type
     private String owner;
 
     public ExerciseManipulationRequest(String name, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, String owner) {
