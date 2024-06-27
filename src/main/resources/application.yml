@@ -16,12 +16,21 @@ spring:
     init:
       platform: postgres
       mode: always
-okta:
-  oauth2:
-    issuer: https://dev-50314961.okta.com/oauth2/default
-    client-id: 0oai07jex0g6NGTZx5d7
-    redirect-uri: http://localhost:8080/login/callback
-    client-secret: r8nR4zxnXy8tisYRqM6km-4-26Ub2cI_T5N9I1iVA-UNZCaEiA3CWOz_1GPS191H
+
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            client-id: 0oai07jex0g6NGTZx5d7
+            client-secret: r8nR4zxnXy8tisYRqM6km-4-26Ub2cI_T5N9I1iVA-UNZCaEiA3CWOz_1GPS191H
+        provider:
+          okta:
+            authorization-uri: https://dev-50314961.okta.com/oauth2/v1/authorize
+            token-uri: https://dev-50314961.okta.com/oauth2/v1/token
+            user-info-uri: https://dev-50314961.okta.com/oauth2/v1/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: https://dev-50314961.okta.com/oauth2/v1/keys
 
 
 logging:
