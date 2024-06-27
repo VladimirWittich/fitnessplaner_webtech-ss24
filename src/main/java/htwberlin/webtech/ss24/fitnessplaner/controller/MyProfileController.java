@@ -3,6 +3,9 @@ package htwberlin.webtech.ss24.fitnessplaner.controller;
 
 import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
 import htwberlin.webtech.ss24.fitnessplaner.model.PersonData;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +22,7 @@ import java.util.List;
 public class MyProfileController {
 
     @GetMapping()
-    public List<PersonData> getPersonData() {
+    public List<PersonData> getPersonData(@AuthenticationPrincipal OidcUser user) {
         // Erstelle eine Übung mit Wiederholungen und Gewicht
         PersonData personData = new PersonData(178, 90, "male");
 

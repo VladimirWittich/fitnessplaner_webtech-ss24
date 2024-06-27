@@ -12,8 +12,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173") // Hier den erlaubten Ursprung angeben
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedOrigins("http://localhost:5173", "https://fitnessplaner-frontend-webtech-ss24-e6t9.onrender.com") // Hier den erlaubten Ursprung angeben
+                .allowedMethods("*")
                 .allowedHeaders("*")
                 .exposedHeaders("Access-Control-Allow-Origin")
                 .allowCredentials(true)
@@ -21,4 +21,3 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 }
-

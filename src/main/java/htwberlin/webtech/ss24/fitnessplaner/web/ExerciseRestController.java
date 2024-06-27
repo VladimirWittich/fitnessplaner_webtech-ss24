@@ -3,7 +3,6 @@ package htwberlin.webtech.ss24.fitnessplaner.web;
 import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseManipulationRequest;
 import htwberlin.webtech.ss24.fitnessplaner.web.service.ExerciseService;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
