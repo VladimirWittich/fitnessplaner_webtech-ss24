@@ -3,7 +3,14 @@ package htwberlin.webtech.ss24.fitnessplaner.web;
 import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseManipulationRequest;
 import htwberlin.webtech.ss24.fitnessplaner.web.service.ExerciseService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +31,7 @@ public class ExerciseRestController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Exercise>> searchExercise(@RequestParam String query) {
+    public ResponseEntity<List<Exercise>> searchExercise(@AuthenticationPrincipal OidcUser user, Model model, @RequestParam String query) {
         List<Exercise> exercises = exerciseService.searchByName(query);
         if (exercises.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -33,7 +40,7 @@ public class ExerciseRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Exercise> getExerciseById(@PathVariable Long id) {
+    public ResponseEntity<Exercise> getExerciseById(@AuthenticationPrincipal OidcUser user, Model model, @PathVariable Long id) {
         Exercise exercise = exerciseService.findById(id);
         if (exercise == null) {
             return ResponseEntity.notFound().build();
@@ -41,17 +48,22 @@ public class ExerciseRestController {
         return ResponseEntity.ok(exercise);
     }
 
+
     @GetMapping("/history")
-    public List<Exercise> getAllExercises(@RequestParam(required = false) String owner) {
-        if (owner != null) {
-            return exerciseService.findByOwner(owner);
+    public ResponseEntity<List<Exercise>> getAllExercises(@AuthenticationPrincipal OidcUser user) {
+        if (user != null) {
+            String email = user.getEmail();
+            List<Exercise> exercises = exerciseService.findByOwner(email);
+            return ResponseEntity.ok(exercises);
         } else {
-            return exerciseService.findAll();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
+
+
     @PostMapping
-    public ResponseEntity<Exercise> createExercise(@RequestBody ExerciseManipulationRequest request) {
+    public ResponseEntity<Exercise> createExercise(@AuthenticationPrincipal OidcUser user, Model model, @RequestBody ExerciseManipulationRequest request) {
         logger.log(Level.INFO, "Received request to create exercise: {0}", request);
         if (request.getOwner() == null || request.getOwner().isEmpty()) {
             logger.log(Level.SEVERE, "Error: Owner darf nicht null oder leer sein.");
@@ -72,7 +84,7 @@ public class ExerciseRestController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Exercise> updateExercise(@PathVariable Long id, @RequestBody ExerciseManipulationRequest request) {
+    public ResponseEntity<Exercise> updateExercise(@AuthenticationPrincipal OidcUser user, Model model, @PathVariable Long id, @RequestBody ExerciseManipulationRequest request) {
         Exercise exercise = exerciseService.update(id, request);
         if (exercise == null) {
             return ResponseEntity.notFound().build();
@@ -81,7 +93,7 @@ public class ExerciseRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExercise(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteExercise(@AuthenticationPrincipal OidcUser user, Model model, @PathVariable Long id) {
         boolean success = exerciseService.deleteById(id);
         if (!success) {
             return ResponseEntity.notFound().build();
