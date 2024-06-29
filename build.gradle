@@ -36,6 +36,9 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-oauth2-jose'
 	runtimeOnly 'org.postgresql:postgresql'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+	implementation 'com.okta.jwt:okta-jwt-verifier:0.5.9'
+	runtimeOnly 'com.okta.jwt:okta-jwt-verifier-impl:0.5.9'
+
 
 }
 

@@ -22,8 +22,9 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/myprofile").permitAll();
                     auth.requestMatchers("/workoutplan").permitAll();
-                    auth.requestMatchers("/history").permitAll();
+                    auth.requestMatchers("/workoutplan/all").permitAll();
                     auth.requestMatchers("/favicon.ico").permitAll();
                     auth.anyRequest().authenticated();
                 })

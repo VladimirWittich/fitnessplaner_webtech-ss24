@@ -46,7 +46,6 @@ logging:
     org.apache.catalina.connector: TRACE
     root: DEBUG
 
-
 server:
   tomcat:
     max-http-header-size: 8192

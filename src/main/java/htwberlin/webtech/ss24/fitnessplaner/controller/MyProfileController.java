@@ -22,7 +22,7 @@ import java.util.List;
 public class MyProfileController {
 
     @GetMapping()
-    public List<PersonData> getPersonData(@AuthenticationPrincipal OidcUser user) {
+    public List<PersonData> getPersonData() {
         // Erstelle eine Übung mit Wiederholungen und Gewicht
         PersonData personData = new PersonData(178, 90, "male");
 
