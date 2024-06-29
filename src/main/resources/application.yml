@@ -32,19 +32,23 @@ spring:
             user-name-attribute: sub
             jwk-set-uri: https://dev-50314961.okta.com/oauth2/v1/keys
 
+      resource-server:
+        jwt:
+          issuer-uri: https://dev-50314961.okta.com/oauth2/default
 
 logging:
   level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
     org.springframework.web: TRACE
     org.apache.coyote.http11.Http11Processor: TRACE
     org.apache.tomcat.util.net.NioEndpoint: TRACE
     org.apache.catalina.connector: TRACE
     root: DEBUG
 
+
 server:
   tomcat:
     max-http-header-size: 8192
-
-
 
 
