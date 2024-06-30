@@ -1,5 +1,6 @@
 package htwberlin.webtech.ss24.fitnessplaner.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public record Exercise(
         List<Integer> repetitions,
         List<Integer> weight,
         int totalWeight,
-        LocalDateTime createdAt
+        LocalDate createdAt
 
 
 

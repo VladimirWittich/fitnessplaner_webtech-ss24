@@ -7,6 +7,7 @@ import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,7 +71,7 @@ public class ExerciseService {
                 request.getRepetitions(),
                 request.getWeight(),
                 request.getTotalWeight(),
-                LocalDateTime.now(),
+                LocalDate.now(),
                 null
         );
         entity = exerciseRepository.save(entity);

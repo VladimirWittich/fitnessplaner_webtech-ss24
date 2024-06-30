@@ -1,6 +1,8 @@
 package htwberlin.webtech.ss24.fitnessplaner.web.persistence;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -32,16 +34,15 @@ public class ExerciseEntity {
     @Column(name = "total_weight")
     private int totalWeight;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDate createdAt;
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
+        createdAt = LocalDate.now();
     }
 
     @PreUpdate
@@ -51,7 +52,7 @@ public class ExerciseEntity {
 
     public ExerciseEntity() {}
 
-    public ExerciseEntity(String name, String owner, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ExerciseEntity(String name, String owner, int sets, List<Integer> repetitions, List<Integer> weight, int totalWeight, LocalDate createdAt, LocalDateTime updatedAt) {
         this.name = name;
         this.owner = owner;
         this.sets = sets;
@@ -118,11 +119,11 @@ public class ExerciseEntity {
         this.totalWeight = totalWeight;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
