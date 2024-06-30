@@ -12,10 +12,6 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
-  sql:
-    init:
-      platform: postgres
-      mode: always
 
   security:
     oauth2:
@@ -32,10 +28,6 @@ spring:
             user-name-attribute: sub
             jwk-set-uri: ${OKTA_JWK_SET_URI}
 
-      resource-server:
-        jwt:
-          issuer-uri: ${OKTA_ISSUER_URI}
-
 logging:
   level:
     org.springframework.security: DEBUG
@@ -49,5 +41,3 @@ logging:
 server:
   tomcat:
     max-http-header-size: 8192
-
-
