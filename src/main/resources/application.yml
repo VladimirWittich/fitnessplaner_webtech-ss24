@@ -22,19 +22,19 @@ spring:
       client:
         registration:
           okta:
-            client-id: 0oai07jex0g6NGTZx5d7
-            client-secret: r8nR4zxnXy8tisYRqM6km-4-26Ub2cI_T5N9I1iVA-UNZCaEiA3CWOz_1GPS191H
+            client-id: ${OKTA_CLIENT_ID}
+            client-secret: ${OKTA_CLIENT_SECRET}
         provider:
           okta:
-            authorization-uri: https://dev-50314961.okta.com/oauth2/v1/authorize
-            token-uri: https://dev-50314961.okta.com/oauth2/v1/token
-            user-info-uri: https://dev-50314961.okta.com/oauth2/v1/userinfo
+            authorization-uri: ${OKTA_AUTHORIZATION_URI}
+            token-uri: ${OKTA_TOKEN_URI}
+            user-info-uri: ${OKTA_USER_INFO_URI}
             user-name-attribute: sub
-            jwk-set-uri: https://dev-50314961.okta.com/oauth2/v1/keys
+            jwk-set-uri: ${OKTA_JWK_SET_URI}
 
       resource-server:
         jwt:
-          issuer-uri: https://dev-50314961.okta.com/oauth2/default
+          issuer-uri: ${OKTA_ISSUER_URI}
 
 logging:
   level:
