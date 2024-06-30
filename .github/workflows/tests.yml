@@ -6,11 +6,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/chckout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Set up JDK 21
         uses: actions/setup-java@v2
         with:
           distribution: "adopt"
           java-version: 21
-      - name: clean build
+
+      - name: Grant execute permission for Gradle wrapper (if necessary)
+        run: chmod +x ./gradlew
+
+      - name: Clean build and run tests
         run: ./gradlew clean test --info --stacktrace
