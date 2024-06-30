@@ -25,7 +25,7 @@ public class SecurityConfiguration {
                     auth
                             .requestMatchers("/bmicalculator").permitAll()
                             .requestMatchers("/workoutplan", "/workoutplan/all", "/workoutplan/search").permitAll()
-                            .requestMatchers("/workoutplan/delete/**").authenticated() // Authentifizierung erforderlich für DELETE-Anfragen
+                            .requestMatchers("/workoutplan/delete/**").authenticated()
                             .requestMatchers("/favicon.ico").permitAll()
                             .anyRequest().authenticated();
                 })
