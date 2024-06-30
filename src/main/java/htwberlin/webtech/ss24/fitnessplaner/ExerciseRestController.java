@@ -1,4 +1,4 @@
-package htwberlin.webtech.ss24.fitnessplaner.controller;
+package htwberlin.webtech.ss24.fitnessplaner;
 
 import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
 import htwberlin.webtech.ss24.fitnessplaner.web.persistence.ExerciseManipulationRequest;

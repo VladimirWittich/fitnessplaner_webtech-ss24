@@ -1,4 +1,4 @@
-package htwberlin.webtech.ss24.fitnessplaner.controller;
+package htwberlin.webtech.ss24.fitnessplaner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
                 .authorizeHttpRequests(auth -> {
                     auth
                             .requestMatchers("/bmicalculator").permitAll()
