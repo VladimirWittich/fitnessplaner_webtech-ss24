@@ -1,25 +1,19 @@
 package htwberlin.webtech.ss24.fitnessplaner.controller;
 
 
-import htwberlin.webtech.ss24.fitnessplaner.model.Exercise;
 import htwberlin.webtech.ss24.fitnessplaner.model.PersonData;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
 @CrossOrigin
 @RestController
-@RequestMapping("/myprofile")
-public class MyProfileController {
+@RequestMapping("/bmicalculator")
+public class BMICalculatorController {
 
     @GetMapping()
     public List<PersonData> getPersonData() {

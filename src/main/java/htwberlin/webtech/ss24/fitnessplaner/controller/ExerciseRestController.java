@@ -20,18 +20,11 @@ public class ExerciseRestController {
         this.exerciseService = exerciseService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Exercise> getExerciseById(@PathVariable Long id) {
-        Exercise exercise = exerciseService.findById(id);
-        if (exercise == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(exercise);
-    }
 
     @GetMapping("/all")
-    public List<Exercise> getAllExercises() {
-        return exerciseService.findAll();
+    public ResponseEntity<List<Exercise>> getAllExercises() {
+        List<Exercise> exercises = exerciseService.findAll();
+        return ResponseEntity.ok(exercises);
     }
 
     @GetMapping("/search")
@@ -58,12 +51,13 @@ public class ExerciseRestController {
         return ResponseEntity.ok(exercise);
     }
 
-    @DeleteMapping("/{id}") // DELETE für das Löschen einer Übung
-    public ResponseEntity<Void> deleteExercise(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteExercise(@PathVariable Long id, @AuthenticationPrincipal OidcUser user) {
         boolean success = exerciseService.deleteById(id);
         if (!success) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
     }
+
 }

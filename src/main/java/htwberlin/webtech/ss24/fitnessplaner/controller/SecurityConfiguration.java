@@ -22,11 +22,12 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/myprofile").permitAll();
-                    auth.requestMatchers("/workoutplan").permitAll();
-                    auth.requestMatchers("/workoutplan/all").permitAll();
-                    auth.requestMatchers("/favicon.ico").permitAll();
-                    auth.anyRequest().authenticated();
+                    auth
+                            .requestMatchers("/bmicalculator").permitAll()
+                            .requestMatchers("/workoutplan", "/workoutplan/all", "/workoutplan/search").permitAll()
+                            .requestMatchers("/workoutplan/delete/**").authenticated() // Authentifizierung erforderlich für DELETE-Anfragen
+                            .requestMatchers("/favicon.ico").permitAll()
+                            .anyRequest().authenticated();
                 })
                 .oauth2Login(withDefaults())
                 .formLogin(withDefaults());
